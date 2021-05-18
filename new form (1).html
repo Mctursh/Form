@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Funds Application Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: absolute;
+      margin: 0;
+      font-size: 38px;
+      color: #fff;
+      z-index: 2;
+      }
+      p.top-info {
+      margin: 10px 0;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 25px 0 #1c87c9;
+      }
+     .banner {
+      position: relative;
+      height: 210px;
+      background-image: url("C:\Users\Theophilus.Fakiyesi\Desktop\Funds-2.jpg");
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      input[type="date"] {
+      padding: 4px 5px;
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+      color: #1c87c9;
+      }
+      .item input:hover, .item select:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 6px 0 #1c87c9;
+      color: #1c87c9;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      font-size: 20px;
+      color: #a9a9a9;
+      }
+      .item i {
+      right: 2%;
+      top: 30px;
+      z-index: 1;
+      }
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 1%;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      input[type=radio]  {
+      display: none;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      margin: 5px 20px 10px 0;
+      cursor: pointer;
+      }
+      .question span {
+      margin-left: 30px;
+      }
+      span.required {
+      margin-left: 0;
+      color: red;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      }
+      input[type=radio]:checked + label:before, label.radio:hover:before {
+      border: 2px solid #1c87c9;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 5px;
+      width: 8px;
+      height: 4px;
+      border: 3px solid #1c87c9;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: auto;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #1c87c9;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #1e6fa0;
+      }
+      @media (min-width: 568px) {
+      .name-item, .contact-item, .position-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .name-item input {
+      width: calc(50% - 20px);
+      }
+      .contact-item .item, .position-item .item {
+      width: calc(50% - 8px);
+      }
+      .contact-item input, .position-item input {
+      width: calc(100% - 12px);
+      }
+      .position-item select {
+      width: 100%;
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="testbox">
+      <form action="/">
+        <div class="banner">
+          <h1>Funding Application Form</h1>
+        </div>
+        <p class="top-info">Welcome to the Apostolic Faith Funds Application Page. Please send your application by filling out the Application Form below.</p>
+        <div class="item">
+          <p>Name<span class="required">*</span></p>
+          <div class="name-item">
+            <input type="text" name="name" placeholder="First" required/>
+            <input type="text" name="name" placeholder="Last" required/>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="item">
+            <p>Email<span class="required">*</span></p>
+            <input type="text" name="name" required/>
+          </div>
+          <div class="item">
+            <p>Phone<span class="required">*</span></p>
+            <input type="text" name="name" required/>
+          </div>
+        </div>
+        <div class="position-item">
+          <div class="item">
+            <h3>Nature of Business<span class="required">*</span></h3>
+            <select required>
+              <option value="1">Agriculture</option>
+              <option value="2">Aviation</option>
+              <option value="3">Commercial/Retail</option>
+              <option value="4">Construction</option>
+              <option value="5">Education</option>
+              <option value="6">Energy and Power Generation</option>
+              <option value="7">FMCG</option>
+              <option value="8">Fashion</option>
+              <option value="9">Financial Services</option>
+              <option value="10">Haulage/Logistics</option>
+              <option value="11">HealthCare</option>
+              <option value="12">ICT</option>
+              <option value="13">Manufacturing</option>
+              <option value="14">Media</option>
+              <option value="15">Oil & Gas</option>
+              <option value="16">Professional Services</option>
+              <option value="17">Telecommunication</option>
+              <option value="18">Tourism/Hospitality</option>
+               <option value="19">Transportation</option>
+            </select>
+          </div>
+          <div class="item">
+             <input type="text" placeholder="Specific Type of Business">
+            <input type="text" placeholder="District">
+            <input type="text" placeholder="State">
+            <input type="text" placeholder="Proposed Business Location">
+
+          </div>
+        </div>
+        <div class="question">
+          <h3>Viable Solution<span class="required">*</span></h3>
+           <label for="longa">What have you identified is the problem or need this
+            business proposal is trying to solve?:</label>
+            <input type="text" id = "longa" name= "longa" placeholder="answer">
+            <label for="longb">What is the solution you are proposing?:</label>
+            <input type="text" id = "longb" name= "longb" placeholder="answer">
+            <label for="longc">Is this solution currently been provided by other business in
+             your proposed location?:</label>
+            <input type="text" id = "longc" name= "longc" placeholder="answer">
+            <label for="longd">What unique feature will differentiate yours from others
+             </label>
+            <input type="text" id = "longd" name= "longd" placeholder="answer">
+            <label for="longe">Are you ready to deploy this solution or product to the
+             market and what have you done to make it ready?:</label>
+            <input type="text" id = "longe" name= "longe" placeholder="answer">
+             <h3>Experience</h3>
+            <label for="longe">What experience do you have in this Business:</label>
+            <input type="text" id = "longe" name= "longe" placeholder="answer">
+            <label for="longe">How relevant is this experience:</label>
+            <input type="text" id = "longe" name= "longe" placeholder="answer">
+              <div class="item">
+         <h3>Equity/Business Capital</h3>
+          <p>What are the items you need to start or re-capitalize this business(Attach list
+            or put in business plan):</p>
+   <input type="file" name="file" accept="file/*">
+        </div>
+         <input type="number" placeholder="Amount of Capital Needed">
+            <input type="number" placeholder="Amount of Capital currently in-hand">
+            <input type="number" placeholder="Amount of Capital sourced for">
+             <h3>Historic Performance</h3>
+              <label for="longe">For how long has this business being in existence:</label>
+            <input type="text" id = "longe" name= "longe" placeholder="answer">
+            <label for="longe">What was your average profit (<small style ="color:#FF0000";>describe in weekly,monthly or yearly</small>)</label>
+             <input type="text" id = "longe" name= "longe" placeholder="answer">
+              <h3>Value/Projected Income</h3>
+            <label for="longf">What is your projected profit after this new capital injection (<small style ="color:#FF0000";>describe in weekly,monthly or yearly</small>)</label>
+            <input type="text" id = "longf" name= "longf" placeholder="answer">
+            <label for="longg">What is the most realistic or minimum profit to be made(<small style ="color:#FF0000";>describe in weekly,monthly or yearly</small>):</label>
+            <h3>Market Base</h3>
+            <label for="longh">Do you think you will have people to consume the product/Service in your location?:</label>
+            <input type="text" id = "longh" name= "longh" placeholder="answer">
+
+            <label for="longi">Can this product/service be taken out of your current location?:</label>
+            <input type="text" id = "longi" name= "longi" placeholder="answer">
+
+        <div class="question">
+          <h3>Ability to pay back </h3>
+          <p>Do you think it will be easy for you to pay back</p>
+          <div class="question-answer">
+            <div>
+              <input type="radio" value="none" id="radio_5" name="payback" />
+              <label for="radio_5" class="radio"><span>Yes</span></label>
+            </div>
+            <div>
+              <input type="radio" value="none" id="radio_6" name="payback" />
+              <label for="radio_6" class="radio"><span>No</span></label>
+            </div>
+          </div>
+        </div>
+                    <label for="longk">How do you intend to payback?:</label>
+            <div>
+              <input type="radio" value="none" id="radio_3" name="status" required/>
+              <label for="radio_3" class="radio"><span>Installmentally(<small style ="color:#FF0000";>describe in weekly,monthly or yearly</small>)</label></span></label>
+             <input type="text" id = "longi" name= "longi" placeholder="answer">
+            </div>
+            <div>
+              <input type="radio" value="none" id="radio_4" name="status" required/>
+              <label for="radio_4" class="radio"><span>Full</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="btn-block">
+          <button type="submit" href="/">Apply For The Funds</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
