@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font awesome CDN -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Material UI  -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <title>Document</title>
+    <style>
+
+        nav, body, header{
+            font-family: "montserrat" "san-serif";
+        }
+        .multisteps-form__progress {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.multisteps-form__progress-btn {
+  transition-property: all;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  position: relative;
+  padding-top: 20px;
+  color: rgba(108, 117, 125, 0.7);
+  text-indent: -9999px;
+  border: none;
+  background-color: transparent;
+  outline: none !important;
+  cursor: pointer;
+}
+
+@media (min-width: 500px) {
+  .multisteps-form__progress-btn {
+    text-indent: 0;
+  }
+}
+
+.multisteps-form__progress-btn:before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  width: 13px;
+  height: 13px;
+  content: '';
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  transition: all 0.15s linear 0s, -webkit-transform 0.15s cubic-bezier(0.05, 1.09, 0.16, 1.4) 0s;
+  transition: all 0.15s linear 0s, transform 0.15s cubic-bezier(0.05, 1.09, 0.16, 1.4) 0s;
+  transition: all 0.15s linear 0s, transform 0.15s cubic-bezier(0.05, 1.09, 0.16, 1.4) 0s, -webkit-transform 0.15s cubic-bezier(0.05, 1.09, 0.16, 1.4) 0s;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background-color: #fff;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.multisteps-form__progress-btn:after {
+  position: absolute;
+  top: 5px;
+  left: calc(-50% - 13px / 2);
+  transition-property: all;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  display: block;
+  width: 100%;
+  height: 2px;
+  content: '';
+  background-color: currentColor;
+  z-index: 1;
+}
+
+.multisteps-form__progress-btn:first-child:after {
+  display: none;
+}
+
+.multisteps-form__progress-btn.js-active {
+  color: #007bff;
+}
+
+.multisteps-form__progress-btn.js-active:before {
+  -webkit-transform: translateX(-50%) scale(1.2);
+          transform: translateX(-50%) scale(1.2);
+  background-color: currentColor;
+}
+
+.multisteps-form__form {
+  position: relative;
+}
+
+.multisteps-form__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.multisteps-form__panel.js-active {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animation styling */
+.multisteps-form__panel[data-animation="scaleIn"] {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+.multisteps-form__panel[data-animation="scaleIn"].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+/* MY style sheet */
+h3{
+  margin: 1rem 0;
+}
+.flex{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+label{
+  width: 100%;
+}
+.red{
+  color: red;
+}
+.container{
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+.radio{
+  margin: 0;
+}
+.alg-cnt{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.radio-field{
+  gap: 0;
+}
+.font{
+  font-size: 1rem;
+}
+</style>
+    
+</head>
+<body>
+    <header>
+        <nav id="targett" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Loan App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Request Loan</a>
+        </li>
+        <li class="nav-item dropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Request loan</a></li>
+          </ul>
+        </li>        
+      </ul>      
+    </div>
+  </div>
+</nav>
+    </header>
+    <div class="container">
+        <div class="multisteps-form">
+  <!--progress bar-->
+  <div class="row">
+    <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+      <div class="multisteps-form__progress">
+        <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">User Info</button>
+        <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>
+        <button class="multisteps-form__progress-btn" type="button" title="Order Info">Order Info</button>
+        <button class="multisteps-form__progress-btn" type="button" title="Comments">Comments        </button>
+      </div>
+    </div>
+  </div>
+  <!--form panels-->
+  <div class="row">
+    <div class="col-12 col-lg-8 m-auto">
+      <form class="multisteps-form__form">
+        <!--single form panel1-->
+        <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+          <h3 class="multisteps-form__title">Basic Information</h3>
+          <div class="multisteps-form__content flex">
+            <div class="first" >
+              <!-- <p class="alert alert-danger" >Invalid username or password</p> -->
+                <label class="mdc-text-field mdc-text-field--outlined username">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Name</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>
+            </div>
+            <div class="last" >
+              <!-- <p class="alert alert-danger" >Invalid username or password</p> -->
+                <label class="mdc-text-field mdc-text-field--outlined username">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Business</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>
+            
+            </div>
+            <div class="email" >
+              <!-- <p class="alert alert-danger" >Invalid username or password</p> -->
+                <label class="mdc-text-field mdc-text-field--outlined username">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Email</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="email" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>
+            </div>
+            <div class="phone" >
+              <!-- <p class="alert alert-danger" >Invalid username or password</p> -->
+                <label class="mdc-text-field mdc-text-field--outlined username">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Phone No</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="tel" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>
+            </div>            
+            <h3 class="multisteps-form__title">Nature of Business</h3>
+                      <div class="mdc-select mdc-select--outlined nature-of-business">
+                        <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                          <span class="mdc-notched-outline">
+                            <span class="mdc-notched-outline__leading"></span>
+                            <span class="mdc-notched-outline__notch">
+                              <span id="outlined-select-label" class="mdc-floating-label">Business</span>
+                            </span>
+                            <span class="mdc-notched-outline__trailing"></span>
+                          </span>
+                          <span class="mdc-select__selected-text-container">
+                            <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                          </span>
+                          <span class="mdc-select__dropdown-icon">
+                            <svg
+                                class="mdc-select__dropdown-icon-graphic"
+                                viewBox="7 10 10 5" focusable="false">
+                              <polygon
+                                  class="mdc-select__dropdown-icon-inactive"
+                                  stroke="none"
+                                  fill-rule="evenodd"
+                                  points="7 10 12 15 17 10">
+                              </polygon>
+                              <polygon
+                                  class="mdc-select__dropdown-icon-active"
+                                  stroke="none"
+                                  fill-rule="evenodd"
+                                  points="7 15 12 10 17 15">
+                              </polygon>
+                            </svg>
+                          </span>
+                        </div>
+
+                        <!-- Other elements from the select remain. -->
+                        <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                <ul class="mdc-list" role="listbox" aria-label="Food picker listbox">
+                  <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                  </li>
+                  <li class="mdc-list-item" aria-selected="false" data-value="grains" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Agriculture
+                    </span>
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Aviation
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Commercial/Retail
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Construction
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Education
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Energy and Power Generation
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      FMCG
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Fashion
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Financial Services
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Haulage/Logistics
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      HealthCare
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      ICT
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Manufacturing
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Media
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Oil & Gas
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item mdc-" aria-selected="false" data-value="vegetables" aria-disabled="true" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Professional Services
+                    </span>          
+                  </li>
+                  <li class="mdc-list-item" aria-selected="false" data-value="fruit" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Telecommunication
+                    </span>
+                  </li>
+                  <li class="mdc-list-item" aria-selected="false" data-value="fruit" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Tourism/Hospitality
+                    </span>
+                  </li>
+                  <li class="mdc-list-item" aria-selected="false" data-value="fruit" role="option">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">
+                      Transportation
+                    </span>
+                  </li>
+                </ul>
+            </div>
+          </div>
+          <div class="business" >
+                <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Business</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>            
+            </div>
+            <div class="specific-type-of-business" >
+                <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Specific Type 0f Business</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>            
+            </div>
+            <div class="district" >
+                <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">District</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>            
+            </div>
+            <div class="state" >
+                <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">State</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>            
+            </div>
+            <div class="proposed-business-location" >
+                <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Proposed Business Location</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            </label>
+          </div>
+            
+            <div class="button-row d-flex mt-4">
+              <a href="#" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!--single form panel2-->
+        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+          <h3 class="multisteps-form__title">Solution</h3>
+          <div class="multisteps-form__content flex">
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">What have you identified is the problem or need this business proposal is trying to solve?</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">What is the solution you are proposing?</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">Are you ready to deploy this solution or product to the market and what have you done to make it ready?</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">Is this solution currently been provided by other business in your proposed location?</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for=""> What unique feature will differentiate yours from others</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+
+            <h3 class="multisteps-form__title">Nature of Business</h3>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">What experience do you have in this Business</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">How relevant is this experience</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+
+            <div class="button-row d-flex mt-4">
+              <a href="#" class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</a>
+              <a href="#" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</a>
+            </div>
+          </div>
+        </div>
+
+
+        <!--single form panel 3-->
+        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+          <h3 class="multisteps-form__title">Equity</h3>
+          <div class="multisteps-form__content flex"> 
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">What are the items you need to start or re-capitalize this business(Attach list or put in business plan)</label>
+               b<input class="form-control form-control-lg" id="formFileLg" type="file" />
+              </div>
+            </div>           
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">Amount of Capital Needed</label>
+                <input class="form-control form-control-lg" id="formFileLg" type="number" />
+              </div>
+            </div>
+            
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">Amount of Capital Currently in-hand</label>
+                <input class="form-control form-control-lg" id="formFileLg" type="number" />
+              </div>
+            </div>
+            
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">Amount of Capital Currently sourced for</label>
+                <input class="form-control form-control-lg" id="formFileLg" type="number" />
+              </div>
+            </div>
+            <h3 class="multisteps-form__title">Historic Performance</h3>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">For How Long has this business been in existence <span class="red">(describe in weekly,monthly or yearly)</span></label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">For How Long has this business been in existence</label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <h3 class="multisteps-form__title">Projected Income</h3>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">What is your projected profit after this new capital injection  <span class="red">(describe in weekly,monthly or yearly)</span></label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="">What is the most realistic or minimum profit to be made <span class="red">(describe in weekly,monthly or yearly)</span></label>
+                <input id="" class="multisteps-form__input form-control" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+             <div class="button-row d-flex mt-4">
+              <a href="#" class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</a>
+              <a href="#" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</a>
+            </div>
+          </div>
+        </div>
+
+        
+        <!--single form panel 4-->
+        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+          <h3 class="multisteps-form__title">Market Base</h3>
+          <div class="multisteps-form__content">
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">Do you think you will have people to consume the product/Service in your location?</label>
+                <input class="form-control form-control-lg" id="formFileLg" type="text" placeholder="Answer" />
+              </div>
+            </div>
+            
+            <div class="form-row mt-4">
+              <div class="col">
+                <label for="formFileLg" class="form-label">Can this product/service be taken out of your current location?:   </label>
+                <input class="form-control form-control-lg" id="formFileLg" type="text" placeholder="Answer"/>
+              </div>
+            </div>
+            <h3 class="multisteps-form__title">Ability to Pay Back</h3>
+            <div class="mdc-form-field flex radio-field-1">
+            <label for="" class="form-label font">Do you think it will be easy for you to pay back</label>
+            <div class="alg-cnt">
+              <div class="mdc-radio mdc-radio-1">
+                <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radio-1" placeholder="Answer">
+                <div class="mdc-radio__background">
+                  <div class="mdc-radio__outer-circle"></div>
+                  <div class="mdc-radio__inner-circle"></div>
+                </div>
+                <div class="mdc-radio__ripple"></div>
+              </div>
+              <label class="radio font" for="radio-1">Yes</label>
+            </div>            
+            <div class="alg-cnt">
+              <div class="mdc-radio mdc-radio-2">
+                <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radio-1" placeholder="Answer">
+                <div class="mdc-radio__background">
+                  <div class="mdc-radio__outer-circle"></div>
+                  <div class="mdc-radio__inner-circle"></div>
+                </div>
+                <div class="mdc-radio__ripple"></div>
+              </div>
+              <label class="radio font" for="radio-1">No</label>
+            </div>
+          </div>
+          <div class="mdc-form-field flex radio-field-2">
+            <label for="formFileLg" class="form-label font">How do you intend to payback?:</label>
+            <div class="alg-cnt">
+              <div class="mdc-radio mdc-radio-3">
+                <input class="mdc-radio__native-control" type="radio" id="radio-2" name="radio-2" placeholder="Answer">
+                <div class="mdc-radio__background">
+                  <div class="mdc-radio__outer-circle"></div>
+                  <div class="mdc-radio__inner-circle"></div>
+                </div>
+                <div class="mdc-radio__ripple"></div>
+              </div>
+              <label class="radio" for="radio-2 font">Instalmentally <span class="red">(describe in weekly,monthly or yearly)</span></label>
+            </div> 
+            <input class="form-control form-control-lg" id="formFileLg" type="text" placeholder="Answer" />           
+            <div class="alg-cnt">
+              <div class="mdc-radio mdc-radio-4">
+                <input class="mdc-radio__native-control" type="radio" id="radio-2" name="radio-2" placeholder="Answer">
+                <div class="mdc-radio__background">
+                  <div class="mdc-radio__outer-circle"></div>
+                  <div class="mdc-radio__inner-circle"></div>
+                </div>
+                <div class="mdc-radio__ripple"></div>
+              </div>
+              <label class="radio" for="radio-2 font">Full</label>
+            </div> 
+          </div>
+          <div class="button-row d-flex mt-4">
+            <a href="#" class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</a>
+            <a href="#" class="btn btn-success ml-auto" type="button" title="Send">Send</a>
+          </div>
+          </div>
+        </div>
+      </form>
+     </div>
+  </div>
+</div>
+    </div>
+    <script>
+        //DOM elements
+const DOMstrings = {
+  stepsBtnClass: 'multisteps-form__progress-btn',
+  stepsBtns: document.querySelectorAll(`.multisteps-form__progress-btn`),
+  stepsBar: document.querySelector('.multisteps-form__progress'),
+  stepsForm: document.querySelector('.multisteps-form__form'),
+  stepsFormTextareas: document.querySelectorAll('.multisteps-form__textarea'),
+  stepFormPanelClass: 'multisteps-form__panel',
+  stepFormPanels: document.querySelectorAll('.multisteps-form__panel'),
+  stepPrevBtnClass: 'js-btn-prev',
+  stepNextBtnClass: 'js-btn-next' };
+
+
+//remove class from a set of items
+const removeClasses = (elemSet, className) => {
+
+  elemSet.forEach(elem => {
+
+    elem.classList.remove(className);
+
+  });
+
+};
+
+//return exect parent node of the element
+const findParent = (elem, parentClass) => {
+
+  let currentNode = elem;
+
+  while (!currentNode.classList.contains(parentClass)) {
+    currentNode = currentNode.parentNode;
+  }
+
+  return currentNode;
+
+};
+
+//get active button step number
+const getActiveStep = elem => {
+  return Array.from(DOMstrings.stepsBtns).indexOf(elem);
+};
+
+//set all steps before clicked (and clicked too) to active
+const setActiveStep = activeStepNum => {
+
+  //remove active state from all the state
+  removeClasses(DOMstrings.stepsBtns, 'js-active');
+
+  //set picked items to active
+  DOMstrings.stepsBtns.forEach((elem, index) => {
+
+    if (index <= activeStepNum) {
+      elem.classList.add('js-active');
+    }
+
+  });
+};
+
+//get active panel
+const getActivePanel = () => {
+
+  let activePanel;
+
+  DOMstrings.stepFormPanels.forEach(elem => {
+
+    if (elem.classList.contains('js-active')) {
+
+      activePanel = elem;
+
+    }
+
+  });
+
+  return activePanel;
+
+};
+
+//open active panel (and close unactive panels)
+const setActivePanel = activePanelNum => {
+
+  //remove active class from all the panels
+  removeClasses(DOMstrings.stepFormPanels, 'js-active');
+
+  //show active panel
+  DOMstrings.stepFormPanels.forEach((elem, index) => {
+    if (index === activePanelNum) {
+
+      elem.classList.add('js-active');
+
+      setFormHeight(elem);
+
+    }
+  });
+
+};
+
+//set form height equal to current panel height
+const formHeight = activePanel => {
+
+  const activePanelHeight = activePanel.offsetHeight;
+
+  DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
+
+};
+
+const setFormHeight = () => {
+  const activePanel = getActivePanel();
+
+  formHeight(activePanel);
+};
+
+//STEPS BAR CLICK FUNCTION
+DOMstrings.stepsBar.addEventListener('click', e => {
+
+  //check if click target is a step button
+  const eventTarget = e.target;
+
+  if (!eventTarget.classList.contains(`${DOMstrings.stepsBtnClass}`)) {
+    return;
+  }
+
+  //get active button step number
+  const activeStep = getActiveStep(eventTarget);
+
+  //set all steps before clicked (and clicked too) to active
+  setActiveStep(activeStep);
+
+  //open active panel
+  setActivePanel(activeStep);
+});
+
+//PREV/NEXT BTNS CLICK
+DOMstrings.stepsForm.addEventListener('click', e => {
+
+  const eventTarget = e.target;
+
+  //check if we clicked on `PREV` or NEXT` buttons
+  if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)))
+  {
+    return;
+  }
+
+  //find active panel
+  const activePanel = findParent(eventTarget, `${DOMstrings.stepFormPanelClass}`);
+
+  let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
+
+  //set active step and active panel onclick
+  if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
+    activePanelNum--;
+
+  } else {
+
+    activePanelNum++;
+
+  }
+
+  setActiveStep(activePanelNum);
+  setActivePanel(activePanelNum);
+
+});
+
+//SETTING PROPER FORM HEIGHT ONLOAD
+window.addEventListener('load', setFormHeight, false);
+
+//SETTING PROPER FORM HEIGHT ONRESIZE
+window.addEventListener('resize', setFormHeight, false);
+    </script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script>
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.first'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.last'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.email'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.phone'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.business'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.state'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.district'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.specific-type-of-business'));
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.proposed-business-location'));
+      mdc.select.MDCSelect.attachTo(document.querySelector('.nature-of-business'));
+      
+      let radio = document.querySelector(".mdc-radio")
+      let radioField= document.querySelector(".mdc-form-field")
+      let radio1 = document.querySelector(".mdc-radio-1")
+      let radio2 = document.querySelector(".mdc-radio-2")
+      let radio3 = document.querySelector(".mdc-radio-3")
+      let radio4 = document.querySelector(".mdc-radio-4")
+      let radioField1 = document.querySelector(".radio-field-1")
+      let radioField2 = document.querySelector(".radio-field-2")
+      mdc.radio.MDCRadio.attachTo(radio)
+      mdc.formField.MDCFormField.attachTo(radioField)
+      radioField1.input = radio1 
+      radioField2.input = radio2 
+      // mdc.textField.MDCTextField.attachTo(document.querySelector('.password'));
+    </script>
+</body>
+</html>
