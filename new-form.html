@@ -150,7 +150,7 @@ label{
 }
 .container{
   margin-top: 3rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 }
 .radio{
   margin: 0;
@@ -199,9 +199,9 @@ label{
     <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
       <div class="multisteps-form__progress">
         <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">User Info</button>
-        <button class="multisteps-form__progress-btn" type="button" title="Address">Address</button>
-        <button class="multisteps-form__progress-btn" type="button" title="Order Info">Order Info</button>
-        <button class="multisteps-form__progress-btn" type="button" title="Comments">Comments        </button>
+        <button class="multisteps-form__progress-btn first-b" type="button" title="Address" disabled>Address</button>
+        <button class="multisteps-form__progress-btn second-b" type="button" title="Order Info" disabled>Order Info</button>
+        <button class="multisteps-form__progress-btn third-b" type="button" title="Comments" disabled>Comments        </button>
       </div>
     </div>
   </div>
@@ -223,7 +223,7 @@ label{
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+                <input type="text" class="mdc-text-field__input first-p" aria-labelledby="my-label-id">
             </label>
             </div>
             <div class="last" >
@@ -236,7 +236,7 @@ label{
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+                <input type="text" class="mdc-text-field__input first-p" aria-labelledby="my-label-id">
             </label>
             
             </div>
@@ -250,7 +250,7 @@ label{
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
-                <input type="email" class="mdc-text-field__input" aria-labelledby="my-label-id">
+                <input type="email" class="mdc-text-field__input first-p" aria-labelledby="my-label-id">
             </label>
             </div>
             <div class="phone" >
@@ -263,7 +263,7 @@ label{
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
-                <input type="tel" class="mdc-text-field__input" aria-labelledby="my-label-id">
+                <input type="tel" class="mdc-text-field__input first-p" aria-labelledby="my-label-id">
             </label>
             </div>            
             <h3 class="multisteps-form__title">Nature of Business</h3>
@@ -272,12 +272,12 @@ label{
                           <span class="mdc-notched-outline">
                             <span class="mdc-notched-outline__leading"></span>
                             <span class="mdc-notched-outline__notch">
-                              <span id="outlined-select-label" class="mdc-floating-label">Business</span>
+                              <span id="outlined-select-label" class="mdc-floating-label ">Business</span>
                             </span>
                             <span class="mdc-notched-outline__trailing"></span>
                           </span>
                           <span class="mdc-select__selected-text-container">
-                            <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                            <span id="demo-selected-text" class="mdc-select__selected-text business"></span>
                           </span>
                           <span class="mdc-select__dropdown-icon">
                             <svg
@@ -422,18 +422,6 @@ label{
                 </ul>
             </div>
           </div>
-          <div class="business" >
-                <label class="mdc-text-field mdc-text-field--outlined">
-                <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                    <span class="mdc-floating-label" id="my-label-id">Business</span>
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-            </label>            
-            </div>
             <div class="specific-type-of-business" >
                 <label class="mdc-text-field mdc-text-field--outlined">
                 <span class="mdc-notched-outline">
@@ -484,7 +472,7 @@ label{
           </div>
             
             <div class="button-row d-flex mt-4">
-              <a href="#" class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</a>
+              <a href="#" class="btn btn-primary ml-auto js-btn-next first-n" type="button" title="Next">Next</a>
             </div>
           </div>
         </div>
@@ -840,13 +828,50 @@ DOMstrings.stepsForm.addEventListener('click', e => {
 
   let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
 
+  // Validation functions
+  const checkStatus = (inputList) => {
+        let status = true, count = null ;   
+        for (let arr of inputList) {
+          if (arr.value.length == 0) {            
+            status = false
+            count = inputList.indexOf(arr)  
+          }
+        }
+        return [status, count]
+      }
+      const checkEmailAndPhoneField = () => {
+        let emailState = [...document.querySelector(".email").classList].includes("mdc-text-field--invalid");
+        let phoneState = true;
+        if (/^\d+$/.test(document.querySelector("input[type=tel]").value)) {          
+          let phoneState = false
+          return [emailState, phoneState]
+        } else {
+          let phoneState = true
+          return [emailState, phoneState]
+        }
+        
+      } 
+
+      const handleFirstNext = () => {
+        let inputs = document.querySelectorAll(".first-p")
+        const [status, count] = checkStatus([...inputs])
+        const [emailState, phoneState] = checkEmailAndPhoneField()
+        const bus = document.querySelector(".business").innerText.length
+        if (status && bus > 0 && !emailState && !phoneState) {
+          activePanelNum++
+        } else {
+          console.log("form not completed");
+        }
+      }
+
   //set active step and active panel onclick
   if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
-    activePanelNum--;
+    handleFirstNext()
+    // activePanelNum--;
 
   } else {
-
-    activePanelNum++;
+    handleFirstNext()
+    // activePanelNum++;
 
   }
 
@@ -868,7 +893,7 @@ window.addEventListener('resize', setFormHeight, false);
       mdc.textField.MDCTextField.attachTo(document.querySelector('.last'));
       mdc.textField.MDCTextField.attachTo(document.querySelector('.email'));
       mdc.textField.MDCTextField.attachTo(document.querySelector('.phone'));
-      mdc.textField.MDCTextField.attachTo(document.querySelector('.business'));
+     // mdc.textField.MDCTextField.attachTo(document.querySelector('.business'));
       mdc.textField.MDCTextField.attachTo(document.querySelector('.state'));
       mdc.textField.MDCTextField.attachTo(document.querySelector('.district'));
       mdc.textField.MDCTextField.attachTo(document.querySelector('.specific-type-of-business'));
@@ -889,5 +914,9 @@ window.addEventListener('resize', setFormHeight, false);
       radioField2.input = radio2 
       // mdc.textField.MDCTextField.attachTo(document.querySelector('.password'));
     </script>
+    <script>      
+      //mdc-text-field--invalid
+    </script>
+
 </body>
 </html>
